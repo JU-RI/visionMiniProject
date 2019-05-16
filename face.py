@@ -42,33 +42,73 @@ if __name__ == '__main__':
     corner = random.choice(corner_list)
     print("gender:", gender, "age:", age, "corner:", corner)
 
-    # DB에 저장
+    #DB에 저장
 
-
-    corner_m1, corner_m2, corner_m3 = [], [], []
     corner_f1, corner_f2, corner_f3 = [], [], []
+    corner_m1, corner_m2, corner_m3 = [], [], []
 
+    #db에서 정보를 불러와서  / person_id로 추천
+    #db불러오기
+    person_corner = []  #id select문으로 corner값만 가져오기
+    best = person.corner.most_common(1)
+    print("당신은", best, "를 선호하시는 군요!")
+
+    
+
+    #db에서 정보를 불러와서  / 성별,연령으로 추천
     for x in corner:
         if age < 30:
-            if gender == "남":
-                corner_m1.append(x)
-            elif gender == "여":
+            if gender == "여":
                 corner_f1.append(x)
+                cn = Counter(corner_f1)
+            elif gender == "남":
+                corner_m1.append(x)
+                cn = Counter(corner_m1)
+        elif 30 < age < 50:
+            if gender == "여":
+                corner_f2.append(x)
+                cn = Counter(corner_f2)
+            elif gender == "남":
+                corner_m2.append(x)
+                cn = Counter(corner_m2)
+        elif age > 50:
+            if gender == "여":
+                corner_f3.append(x)
+                cn = Counter(corner_f3)
+            elif gender == "남":
+                corner_m3.append(x)
+                cn = Counter(corner_m3)
 
-
-
-
-    total_cn = []
-    for i in corner:
-        total_cn.append(i)
-    print(total_cn)
-
-    yy_corner, y_corner, o_corner = [], [], []
-
-    cn = Counter(total_cn)
     print(cn)
-
     mode = cn.most_common(1)
     print(mode)
-
     best = mode[0][0]
+    print("당신은", best, "를 선호하시는 군요!")
+
+    meat_list = ['meat1.png', 'meat2.png', 'meat3.png']
+    food_list = ['food1.png', 'food2.png', 'food3.png']
+    snack_list = ['snack1.png', 'snack2.png', 'snack3.png']
+    elec_list = ['elec1.png', 'elec2.png', 'elec3.png']
+
+    if best == 'meat':
+        for rec_img in meat_list:
+            photo = PhotoImage(file=rec_img)
+            label = Label(w, image=photo)
+            label.pack()
+    elif best == 'food'
+        for rec_img in food_list:
+            photo = PhotoImage(file=rec_img)
+            label = Label(w, image=photo)
+            label.pack()
+    elif best == 'snack':
+        for rec_img in snack_list:
+            photo = PhotoImage(file=rec_img)
+            label = Label(w, image=photo)
+            label.pack()
+    elif best == 'elec':
+        for rec_img in elec_list:
+            photo = PhotoImage(file=rec_img)
+            label = Label(w, image=photo)
+            label.pack()
+
+    print("상품을 추천합니다.")
