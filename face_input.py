@@ -3,12 +3,11 @@ import argparse  #serialize와 같은 역할 // 이미지를 원하는 파라미
 import sys
 import math
 import random
+from collections import Counter
 from kakao import searchdb
 from PIL import Image, ImageTk
 import tkinter as tk
 from tkinter import filedialog
-
-
 
 
 photolabel = None
@@ -72,8 +71,119 @@ def db_btn():
 
 def like_btn():
     global info_label
-    searchdb.sqlselect()
-    info_label.configure(text=searchdb.record[0])
+    result = []
+    search_result = searchdb.sqlselect()
+
+    for x in range(0, len(search_result)):
+        for y in range(0, len(search_result[x])):
+            result.append(y)
+
+    print(result)
+    corner_f1, corner_f2, corner_f3 = [], [], []
+
+    corner_m1, corner_m2, corner_m3 = [], [], []
+
+    # db에서 정보를 불러와서  / 성별,연령으로 추천
+
+    for x in corner:
+
+        if age < 30:
+
+            if gender == "여":
+
+                corner_f1.append(x)
+
+                cn = Counter(corner_f1)
+
+            elif gender == "남":
+
+                corner_m1.append(x)
+
+                cn = Counter(corner_m1)
+
+        elif 30 < age < 50:
+
+            if gender == "여":
+
+                corner_f2.append(x)
+
+                cn = Counter(corner_f2)
+
+            elif gender == "남":
+
+                corner_m2.append(x)
+
+                cn = Counter(corner_m2)
+
+        elif age > 50:
+
+            if gender == "여":
+
+                corner_f3.append(x)
+
+                cn = Counter(corner_f3)
+
+            elif gender == "남":
+
+                corner_m3.append(x)
+
+                cn = Counter(corner_m3)
+
+    print(cn)
+
+    mode = cn.most_common(1)
+
+    print(mode)
+
+    best = mode[0][0]
+
+    print("당신은", best, "를 선호하시는 군요!")
+
+    meat_list = ['meat1.png', 'meat2.png', 'meat3.png']
+
+    food_list = ['food1.png', 'food2.png', 'food3.png']
+
+    snack_list = ['snack1.png', 'snack2.png', 'snack3.png']
+
+    elec_list = ['elec1.png', 'elec2.png', 'elec3.png']
+
+    if best == 'meat':
+
+        for rec_img in meat_list:
+            photo = ImageTk.PhotoImage(file=rec_img)
+
+            label = tk.Label(root, image=photo)
+
+            label.pack()
+
+    elif best == 'food':
+
+        for rec_img in food_list:
+            photo = ImageTk.PhotoImage(file=rec_img)
+
+            label = tk.Label(root, image=photo)
+
+            label.pack()
+
+    elif best == 'snack':
+
+        for rec_img in snack_list:
+            photo = ImageTk.PhotoImage(file=rec_img)
+
+            label = tk.Label(root, image=photo)
+
+            label.pack()
+
+    elif best == 'elec':
+
+        for rec_img in elec_list:
+            photo = ImageTk.PhotoImage(file=rec_img)
+
+            label = tk.Label(root, image=photo)
+
+            label.pack()
+
+    print("상품을 추천합니다.")
 
 def detect_face(filename):
     headers = {'Authorization':'KakaoAK {}'.format(MYAPP_KEY)}  #원하는 형태로 바꿔 줌 / MYAPP_KEY가 {}안에 들어감
