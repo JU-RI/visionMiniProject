@@ -10,7 +10,6 @@ def sqlinsert(gender, age, corner):
     con.commit()
     con.close()
 
-
 def sqlselect():
     global result
     con = pymysql.connect(host='localhost', user='root', password='1234', db='marketplace')

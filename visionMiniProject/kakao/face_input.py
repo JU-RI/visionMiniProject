@@ -17,7 +17,6 @@ root = None
 API_URL = "https://kapi.kakao.com/v1/vision/face/detect"  #상수 -> 대문자로 씀(값을 바꾸지 않을 것이라는 뜻)
 MYAPP_KEY = "9668247f106b2c87b5121a0c57f40b4a"  #REST API 키
 
-
 def file_open():# 파일을 열어서 분석하는 버튼
     global filelabel, photolabel, gender, age, corner
     filename = filedialog.askopenfilename(initialdir="C:/Users/Darkvalui/Pictures", title="choose your file",
@@ -98,7 +97,7 @@ def like_btn():  #성별, 연령으로 상품추천
     best = mode[0][0]
     result_label = tk.Label(root, text=label_text + " " + best + "코너 상품을 추천합니다.",
                             font=("맑은 고딕", 30), fg="orange", bg="white", width=50)
-    result_label.place(x=100, y=25)
+    result_label.place(x=100, y=26)
     best_show()
 
 
